@@ -44,6 +44,59 @@ body{margin: 0; padding: 0; background-color: black;}
 }
 #i_b:hover{background-color: #00488f; cursor: pointer;}
 
+/* ---------------- */
+/* --- AVGANGER --- */
+/* ---------------- */
+
+#resultater{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
+
+.departureDiv{
+    display: flex;
+    flex-flow: row;
+    background-color: #212121;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 8px;
+    text-align: center;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+}
+.aimedStartDiv{
+    margin: 8px;
+    margin-right: 0px;
+    font-size: 200%;
+}
+.aimedEndDiv {
+    margin: 32px;
+    margin-left: 0px;
+    font-size: 200%;
+}
+.lineDiv{
+    font-size: 200%;
+    margin: 8px;
+    border-radius: 8px;
+    padding: 8px;
+}
+.red{
+    background-color: #E60000;
+}
+.orange{
+    background-color: #EC700C;
+}
+.walkDiv{
+    max-width: 25px;
+    color: white;
+    margin: 8px;
+}
+
 /* ----------------- */
 /* ----- FONTS ----- */
 /* ----------------- */
