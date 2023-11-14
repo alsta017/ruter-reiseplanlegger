@@ -64,39 +64,89 @@ body{margin: 0; padding: 0; background-color: black;}
     margin: 8px;
     border-radius: 8px;
     text-align: center;
-    height: 64px;
+    height: max-content;
     align-items: center;
     justify-content: center;
     width: max-content;
 }
 .aimedStartDiv{
-    margin: 8px;
-    margin-right: 0px;
+    margin-left: 8px;
     font-size: 200%;
 }
 .aimedEndDiv {
-    margin: 32px;
-    margin-left: 0px;
+    margin-right: 8px;
     font-size: 200%;
 }
 .lineDiv{
     font-size: 200%;
-    margin: 8px;
+    margin: 0px 8px 0px 8px;
     border-radius: 8px;
     padding: 8px;
-}
-.red{
-    background-color: #E60000;
 }
 .orange{
     background-color: #EC700C;
 }
+.other{
+    background-color: #757575;
+}
+.red{
+    background-color: #E60000;
+}
+.green{
+    background-color: #75A300;
+}
+.blue{
+    background-color: #0B91EF;
+}
 .walkDiv{
     max-width: 25px;
     color: white;
-    margin: 8px;
+    margin: 0px 8px 0px 8px;
 }
-
+.fullDiv{
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 16px;
+}
+.fulltimeDisplay{
+    display: flex;
+    font-family: 'TID UI';
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-flow: row;
+}
+.timeDisplayEdit{
+    text-decoration: line-through;
+    font-size: 10px;
+}
+.startDiv{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.endDiv{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.linediv{
+    margin: 0px 8px 0px 8px;
+}
+.totalTime{
+    margin-left: 8px;
+}
+.legDiv{
+    background-color: #212121;
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    flex-flow: row;
+    border-radius: 8px;
+}
 /* ----------------- */
 /* ----- FONTS ----- */
 /* ----------------- */

@@ -2,6 +2,7 @@ let resultaterEl = document.getElementById("resultater");
 let fraEl = localStorage.getItem("Fra");
 let tilEl = localStorage.getItem("Til");
 let i_h1el = document.getElementById("i_h1");
+let trips = "";
 
 reise();
 function reise () {
@@ -36,6 +37,7 @@ function reise () {
                     expectedEndTime
                     streetDistance
                     walkTime
+                    duration
                     legs {
                         aimedStartTime
                         expectedStartTime
@@ -59,11 +61,13 @@ function reise () {
     })
     .then(res => res.json())
     .then(stopPlaceData => {
-        
+        localStorage.setItem("stopPlaceData", JSON.stringify(stopPlaceData));
+        p = 0;
         let html = '';
         const search = stopPlaceData.data.trip;
-        const trips = search.tripPatterns;
+        trips = search.tripPatterns;
         console.log(stopPlaceData);
+        console.log(trips);
         i_h1el.innerText = "Resultater fra " + search.fromPlace.name + " til " + search.toPlace.name;
         // For alle avanger length
         for (let i = 0; i < trips.length; i++) {
@@ -76,6 +80,8 @@ function reise () {
 
             const departureF = document.createElement('div');
             departureF.className = "departureDiv";
+            departureF.id = p;
+            departureF.setAttribute("onclick","avgangclick(this.id)")
 
             const aimedStartF = document.createElement('div');
             aimedStartF.className = 'aimedStartDiv';
@@ -114,8 +120,16 @@ function reise () {
             };
 
             resultaterEl.appendChild(departureF);
+            p++
         };
     // textel.innerHTML = `Avganger fra: ${stopPlaceData.data.stopPlace.name}`;
     // originaltidEl.innerHTML = "Ruter/Entur API (Testing)";
 });
+};
+
+function avgangclick(avgangid) {
+    console.log(avgangid);
+    console.log(trips[avgangid]);
+    localStorage.setItem("avgangclicked", avgangid);
+    window.location.replace("trip.html");
 };
