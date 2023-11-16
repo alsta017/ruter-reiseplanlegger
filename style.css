@@ -78,10 +78,14 @@ body{margin: 0; padding: 0; background-color: black;}
     font-size: 200%;
 }
 .lineDiv{
-    font-size: 200%;
-    margin: 0px 8px 0px 8px;
     border-radius: 8px;
-    padding: 8px;
+    margin: 8px;
+}
+.lineDiv2{
+    margin: 8px;
+    padding: 4px;
+    font-size: 200%;
+    border-radius: 8px;
 }
 .orange{
     background-color: #EC700C;
@@ -113,9 +117,9 @@ body{margin: 0; padding: 0; background-color: black;}
     font-family: 'TID UI';
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
     flex-flow: row;
+    height: fit-content;
+    font-size: 200%;
 }
 .timeDisplayEdit{
     text-decoration: line-through;
@@ -133,19 +137,44 @@ body{margin: 0; padding: 0; background-color: black;}
     justify-content: center;
     align-items: center;
 }
-.linediv{
-    margin: 0px 8px 0px 8px;
-}
 .totalTime{
-    margin-left: 8px;
+    margin-left: 16px;
+}
+.lineDivLeg{
+    margin: 0px 4px 0px 4px;
 }
 .legDiv{
     background-color: #212121;
     padding: 8px;
     margin: 8px;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    font-size: 150%;
+}
+.lineNumberDiv{
+    border-radius: 8px;
+    padding: 8px;
+    margin-left: 16px;
+}
+.lineTextDiv{
+    margin-left: 8px;
+}
+.walkDiv2{
+    height: 32px;
+    margin-left: 16px;
+}
+.legDivLine1{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+.legDivLine2{
+    font-size: 75%;
+    margin-top: 8px;
 }
 /* ----------------- */
 /* ----- FONTS ----- */
@@ -153,4 +182,7 @@ body{margin: 0; padding: 0; background-color: black;}
 @font-face {
     font-family: 'TID UI';
     src: url(Fonts/TIDUI-Regular.ttf);
+}
+#map{
+    display: block;
 }

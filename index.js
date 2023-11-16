@@ -137,7 +137,7 @@ function valg2 () {
             if (velgEnArr.length === 0) {
                 var nodataelement = document.createElement("p");
                 nodataelement.className = "loadingtextindex";
-                if (fraEl.value.length == 0) {
+                if (tilEl.value.length == 0) {
                     nodataelement.textContent = "";
                 } else {
                     nodataelement.textContent = "Ingen resultater.";
