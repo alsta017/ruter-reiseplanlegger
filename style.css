@@ -10,6 +10,7 @@ body{margin: 0; padding: 0; background-color: black;}
 
 /* Index p (Normal tekst) */
 .i_p{margin: 0.5%; margin-bottom: 0.25%;}
+.e_p{margin: 2%; margin-bottom: 0.5%;}
 .i_p2{margin: 0.5%; margin-top: 1%; margin-bottom: 0.25%;}
 
 /* Index input form fra / til */
@@ -173,8 +174,13 @@ body{margin: 0; padding: 0; background-color: black;}
     align-items: center;
 }
 .legDivLine2{
+    display: flex;
+    flex-flow: row;
     font-size: 75%;
     margin-top: 8px;
+    background-color: #292929;
+    padding: 8px;
+    border-radius: 8px;
 }
 /* ----------------- */
 /* ----- FONTS ----- */
@@ -185,4 +191,53 @@ body{margin: 0; padding: 0; background-color: black;}
 }
 #map{
     display: block;
+}
+.stopsDiv{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    font-size: 75%;
+    margin-left: 8px;
+    background-color: #313131;
+    border-radius: 8px;
+    padding: 8px;
+}
+.startPlaceDiv{
+    margin: auto;
+    font-size: 125%;
+}
+.endPlaceDiv{
+    margin: auto;
+    font-size: 125%;
+    margin-left: 8px;
+}
+
+.button2{
+    border: 0;
+    background-color: blue;
+    color: white;
+    margin: 8px;
+    padding: 4px;
+    border-radius: 8px;
+}
+.button2:hover{
+    cursor: pointer;
+}
+#avgangankomst{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.avganginputh1, .ankomstinputh1{
+    margin: 8px;
+}
+.stopPlaceCount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-left: 8px;
+    font-size: 125%;
 }

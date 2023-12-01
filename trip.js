@@ -1,12 +1,17 @@
-let i_h1el = document.getElementById("i_h1");
+const i_h1el = document.querySelector("#i_h1");
 let stopPlaceDatas = JSON.parse(localStorage.getItem("stopPlaceData"));
 let avgangclickus = localStorage.getItem("avgangclicked");
-let departuredisplayDiv = document.getElementById("departuredisplay");
+let departuredisplayDiv = document.querySelector("#departuredisplay");
 let trips = stopPlaceDatas.data.trip.tripPatterns;
 let ivalue = "";
+let visellerskulallestoppEl = document.querySelector("#visellerskulallestopp");
 
-let map = L.map('map').setView([51.505, -0.09], 13); // Set the initial coordinates and zoom level
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+let visAlleDiv = document.createElement('button');
+visAlleDiv.className = "button2";
+visAlleDiv.setAttribute('id', 'visAlleStopp');
+visAlleDiv.setAttribute('onclick', 'visAlleStopp()');
+visAlleDiv.textContent = "Vis mellomstopp";
+visellerskulallestoppEl.appendChild(visAlleDiv)
 
 console.log(stopPlaceDatas);
 
@@ -108,7 +113,7 @@ for (c = 0; c < this_departure.legs.length; c++) {
             lineNumberDiv.className = lineNumberDiv.classList + ' orange';
         } else if (this_departure.legs[c].line.publicCode > 9 && this_departure.legs[c].line.publicCode < 20) {
             lineNumberDiv.className = lineNumberDiv.classList + ' blue';
-        } else if (this_departure.legs[c].line.publicCode.length > 1 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') > 19 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') < 99){
+        } else if (this_departure.legs[c].line.publicCode.length > 1 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') > 19 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') < 99 | this_departure.legs[c].line.publicCode == "110" | this_departure.legs[c].line.publicCode == "100" | this_departure.legs[c].line.publicCode == "300"){
             lineNumberDiv.className = lineNumberDiv.classList + ' red';
         } else if (this_departure.legs[c].line.publicCode.length > 1 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') > 99 && this_departure.legs[c].line.publicCode.replace(/\D/g,'') < 4000) {
             lineNumberDiv.className = lineNumberDiv.classList + ' green';
@@ -119,7 +124,9 @@ for (c = 0; c < this_departure.legs.length; c++) {
         let lineTextDiv = document.createElement('div');
         lineTextDiv.className = "lineTextDiv";
         lineTextDiv.textContent = this_departure.legs[c].fromEstimatedCall.destinationDisplay.frontText;
-
+        if (lineTextDiv.textContent === "Majorstuen") {
+            lineTextDiv.textContent = "Majorstua";
+        }
         legDivLine1.appendChild(lineNumberDiv);
         legDivLine1.appendChild(lineTextDiv);
 
@@ -135,17 +142,47 @@ for (c = 0; c < this_departure.legs.length; c++) {
     let legDivLine2 = document.createElement('div');
     legDivLine2.className = "legDivLine2";
 
+    let stopsDiv = document.createElement('div');
+    stopsDiv.className = "stopsDiv";
+
     let startPlaceDiv = document.createElement('div');
     startPlaceDiv.className = "startPlaceDiv"
-    startPlaceDiv.textContent = this_departure.legs[c].fromPlace.quay.name + " - " + this_departure.legs[c].toPlace.quay.name;
+    startPlaceDiv.textContent = this_departure.legs[c].fromPlace.quay.name + " →";
     legDivLine2.appendChild(startPlaceDiv);
 
+    let endPlaceDiv = document.createElement('div');
+    endPlaceDiv.className = "endPlaceDiv";
+
+    let stopPlaceCount = document.createElement('div');
+    stopPlaceCount.className = "stopPlaceCount";
+    stopPlaceCount.textContent = this_departure.legs[c].intermediateEstimatedCalls.length + " stopp"
+    console.log(stopPlaceCount.textContent)
+
+    for (d = 0; d < this_departure.legs[c].intermediateEstimatedCalls.length; d++) {
+        let stopDiv = document.createElement('div');
+        stopDiv.className = "stopDiv"
+        stopDiv.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].expectedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'}) + " - " + this_departure.legs[c].intermediateEstimatedCalls[d].quay.name;
+        stopsDiv.appendChild(stopDiv);
+        endPlaceDiv.textContent = "→ ";
+        stopsDiv.style.display = "none";
+        legDivLine2.appendChild(stopPlaceCount)
+    }
+    if (this_departure.legs[c].intermediateEstimatedCalls.length) {
+        legDivLine2.appendChild(stopsDiv);
+    }
+
+    endPlaceDiv.textContent = endPlaceDiv.textContent + this_departure.legs[c].toPlace.quay.name;
+    legDivLine2.appendChild(endPlaceDiv);
     legDiv.appendChild(legDivLine1);
     legDiv.appendChild(legDivLine2);
     legsDiv.appendChild(legDiv);
+}
 
+function visAlleStopp () {
+    document.querySelectorAll(".stopPlaceCount").forEach(a=>a.style.display = "none");
+    document.querySelectorAll(".stopsDiv").forEach(a=>a.style.display = "block");
 }
 
 fullDiv.appendChild(legsDiv);
 
-i_h1el.innerHTML = "Fra " + stopPlaceDatas.data.trip.fromPlace.name + " til " + stopPlaceDatas.data.trip.toPlace.name;
+i_h1el.innerHTML = `Fra ${stopPlaceDatas.data.trip.fromPlace.name} til ${stopPlaceDatas.data.trip.toPlace.name}`;
