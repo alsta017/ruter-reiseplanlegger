@@ -6,6 +6,7 @@ let trips = stopPlaceDatas.data.trip.tripPatterns;
 let ivalue = "";
 let visellerskulallestoppEl = document.querySelector("#visellerskulallestopp");
 
+
 let visAlleDiv = document.createElement('button');
 visAlleDiv.className = "button2";
 visAlleDiv.setAttribute('id', 'visAlleStopp');
@@ -13,7 +14,6 @@ visAlleDiv.setAttribute('onclick', 'visAlleStopp()');
 visAlleDiv.textContent = "Vis mellomstopp";
 visellerskulallestoppEl.appendChild(visAlleDiv)
 
-console.log(stopPlaceDatas);
 
 for (let i = 0; i < trips.length; i++) {
     if (i == avgangclickus) {
@@ -22,7 +22,6 @@ for (let i = 0; i < trips.length; i++) {
 };
 
 let this_departure = trips[ivalue];
-console.log(this_departure)
 
 let fullDiv = document.createElement('div');
 fullDiv.className = "fullDiv";
@@ -102,8 +101,14 @@ for (c = 0; c < this_departure.legs.length; c++) {
     endTimeExpDivLeg.className = "startTimeExpDivLeg";
     endTimeExpDivLeg.textContent = new Date(this_departure.legs[c].expectedEndTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
     legDivLine1.appendChild(endTimeExpDivLeg);
+    if (this_departure.legs[c].mode == "air") {
 
-    if (this_departure.legs[c].fromEstimatedCall !== null) {
+        let flyDiv = document.createElement('img');
+        flyDiv.className = "flyDiv2";
+        flyDiv.src = "Images/plane.png"
+        legDivLine1.appendChild(flyDiv);
+
+    } else if (this_departure.legs[c].fromEstimatedCall !== null) {
 
         let lineNumberDiv = document.createElement('div');
         lineNumberDiv.className = "lineNumberDiv";
@@ -156,12 +161,26 @@ for (c = 0; c < this_departure.legs.length; c++) {
     let stopPlaceCount = document.createElement('div');
     stopPlaceCount.className = "stopPlaceCount";
     stopPlaceCount.textContent = this_departure.legs[c].intermediateEstimatedCalls.length + " stopp"
-    console.log(stopPlaceCount.textContent)
 
     for (d = 0; d < this_departure.legs[c].intermediateEstimatedCalls.length; d++) {
+        let stopDivExp = document.createElement('div');
+        let stopDivAim = document.createElement('div');
         let stopDiv = document.createElement('div');
-        stopDiv.className = "stopDiv"
-        stopDiv.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].expectedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'}) + " - " + this_departure.legs[c].intermediateEstimatedCalls[d].quay.name;
+        let stopName = document.createElement('div')
+        stopDiv.className = "stopDiv";
+        stopDivExp.className = "stopDivExp";
+        stopDivAim.className = "stopDivAim";
+        stopName.className = "stopName";
+        stopDivExp.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].expectedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
+        stopDivAim.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].aimedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
+        stopName.textContent = " - " + this_departure.legs[c].intermediateEstimatedCalls[d].quay.name;
+        if (stopDivExp.textContent !== stopDivAim.textContent) {
+            stopDiv.appendChild(stopDivAim);
+            stopDiv.appendChild(stopDivExp);
+        } else {
+            stopDiv.appendChild(stopDivExp);
+        }
+        stopDiv.appendChild(stopName);
         stopsDiv.appendChild(stopDiv);
         endPlaceDiv.textContent = "→ ";
         stopsDiv.style.display = "none";
@@ -178,9 +197,27 @@ for (c = 0; c < this_departure.legs.length; c++) {
     legsDiv.appendChild(legDiv);
 }
 
+let skulButton = document.createElement("button");
+skulButton.className = "button2";
+skulButton.setAttribute("id", "skulAlleStopp");
+skulButton.setAttribute("onclick", "skulAlleStopp()");
+skulButton.textContent = "Skul mellomstopp";
+
 function visAlleStopp () {
+    let visButton = document.getElementById("visAlleStopp");
     document.querySelectorAll(".stopPlaceCount").forEach(a=>a.style.display = "none");
     document.querySelectorAll(".stopsDiv").forEach(a=>a.style.display = "block");
+    visButton.style.display = "none";
+    visellerskulallestoppEl.appendChild(skulButton);
+    skulButton.style.display = "block";
+}
+function skulAlleStopp () {
+    let skulButton = document.getElementById("skulAlleStopp");
+    let visButton = document.getElementById("visAlleStopp");
+    document.querySelectorAll(".stopPlaceCount").forEach(a=>a.style.display = "block");
+    document.querySelectorAll(".stopsDiv").forEach(a=>a.style.display = "none");
+    skulButton.style.display = "none";
+    visButton.style.display = "block";
 }
 
 fullDiv.appendChild(legsDiv);

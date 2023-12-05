@@ -14,16 +14,24 @@
         <!------->
         <!--FRA-->
         <!------->
-        <p class="i_p">Fra:</p>
-        <form id="i_fra" onsubmit="return false;">
-            <input type="text" id="i_ifra">
-        </form>
+        <div id="fra_div">
+            <p class="i_p">Fra:</p>
+            <form id="i_fra" onsubmit="return false;">
+                <input type="text" id="i_ifra">
+            </form>
+            <p id="fra_div_input"></p>
+        </div>
         <!------->
         <!--TIL-->
         <!------->
-        <p class="i_p" id="i_pl"></p>
-        <!-- Append fra Javascript når nødvendig -->
-        <form id="i_til" onsubmit="return false;"></form>
+        <div id="til_div">
+            <p class="i_p">Til:</p>
+            <!-- Append fra Javascript når nødvendig -->
+            <form id="i_til" onsubmit="return false;">
+                <input type="text" id="i_itil">
+            </form>
+            <p id="til_div_input"></p>
+        </div>
         <p id="velg"></p>
     </div>
     <script src="index.js"></script>

@@ -8,11 +8,16 @@ let ankomstEl = localStorage.getItem("ankomst");
 let arriveBy = "false";
 let avgangogavkomstel = "";
 if (ankomstEl) {
-    avgangankomstEl = ankomstEl;
+    avgangogavkomstel = ankomstEl;
     arriveBy = "true";
 } else if (avgangEl) {
-    avgangankomstEl = avgangEl;
+    avgangogavkomstel = avgangEl;
+} else {
+    avgangogavkomstel = new Date().toISOString();
 }
+console.log(avgangogavkomstel);
+let byttetid2El = localStorage.getItem("byttetid");
+let byttetid2ElSec = byttetid2El * 60;
 
 
 reise();
@@ -25,15 +30,18 @@ function reise () {
     'Content-Type': 'application/json'
     },
     // GraphQL Query
-    // https://api.entur.io/graphql-explorer/journey-planner-v3?query=%7B%0A%20%20trip%28%0A%20%20%20%20from%3A%20%7Bplace%3A%20"NSR%3AStopPlace%3A58227"%7D%0A%20%20%20%20to%3A%20%7Bplace%3A%20"NSR%3AStopPlace%3A5920"%7D%0A%20%20%20%20walkSpeed%3A%201.3%0A%20%20%20%20includePlannedCancellations%3A%20true%0A%20%20%20%20includeRealtimeCancellations%3A%20true%0A%20%20%29%20%7B%0A%20%20%20%20fromPlace%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%20%20toPlace%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%20%20tripPatterns%20%7B%0A%20%20%20%20%20%20aimedStartTime%0A%20%20%20%20%20%20expectedStartTime%0A%20%20%20%20%20%20aimedEndTime%0A%20%20%20%20%20%20expectedEndTime%0A%20%20%20%20%20%20streetDistance%0A%20%20%20%20%20%20walkTime%0A%20%20%20%20%20%20duration%0A%20%20%20%20%20%20legs%20%7B%0A%20%20%20%20%20%20%20%20aimedStartTime%0A%20%20%20%20%20%20%20%20expectedStartTime%0A%20%20%20%20%20%20%20%20aimedEndTime%0A%20%20%20%20%20%20%20%20expectedEndTime%0A%20%20%20%20%20%20%20%20mode%0A%20%20%20%20%20%20%20%20duration%0A%20%20%20%20%20%20%20%20line%20%7B%0A%20%20%20%20%20%20%20%20%20%20publicCode%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20fromEstimatedCall%20%7B%0A%20%20%20%20%20%20%20%20%20%20destinationDisplay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20frontText%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20fromPlace%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20toPlace%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20intermediateEstimatedCalls%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20aimedArrivalTime%0A%20%20%20%20%20%20%20%20%20%20expectedArrivalTime%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&variables=
+    // https://api.entur.io/graphql-explorer/journey-planner-v3?query=%7B%0A%20%20trip%28%0A%20%20%20%20from%3A%20%7Bplace%3A%20"NSR%3AStopPlace%3A58227"%7D%0A%20%20%20%20to%3A%20%7Bplace%3A%20"NSR%3AStopPlace%3A5920"%7D%0A%20%20%20%20walkSpeed%3A%201.3%0A%20%20%20%20dateTime%3A%20"2023-12-11T15%3A00%3A00.000Z"%0A%20%20%20%20arriveBy%3A%20false%0A%20%20%20%20includePlannedCancellations%3A%20true%0A%20%20%20%20includeRealtimeCancellations%3A%20true%0A%20%20%29%20%7B%0A%20%20%20%20fromPlace%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%20%20toPlace%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%20%20tripPatterns%20%7B%0A%20%20%20%20%20%20aimedStartTime%0A%20%20%20%20%20%20expectedStartTime%0A%20%20%20%20%20%20aimedEndTime%0A%20%20%20%20%20%20expectedEndTime%0A%20%20%20%20%20%20streetDistance%0A%20%20%20%20%20%20walkTime%0A%20%20%20%20%20%20duration%0A%20%20%20%20%20%20legs%20%7B%0A%20%20%20%20%20%20%20%20aimedStartTime%0A%20%20%20%20%20%20%20%20expectedStartTime%0A%20%20%20%20%20%20%20%20aimedEndTime%0A%20%20%20%20%20%20%20%20expectedEndTime%0A%20%20%20%20%20%20%20%20mode%0A%20%20%20%20%20%20%20%20duration%0A%20%20%20%20%20%20%20%20line%20%7B%0A%20%20%20%20%20%20%20%20%20%20publicCode%0A%20%20%20%20%20%20%20%20%20%20id%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20fromEstimatedCall%20%7B%0A%20%20%20%20%20%20%20%20%20%20destinationDisplay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20frontText%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20fromPlace%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20toPlace%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20intermediateEstimatedCalls%20%7B%0A%20%20%20%20%20%20%20%20%20%20quay%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20aimedArrivalTime%0A%20%20%20%20%20%20%20%20%20%20expectedArrivalTime%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A&variables=
     body: JSON.stringify({ 
         query: `{
             trip(
                 from: {place: "${fraEl}"}
                 to: {place: "${tilEl}"}
+                dateTime: "${avgangogavkomstel}"
+                arriveBy: ${arriveBy}
                 walkSpeed: 1.3
                 includePlannedCancellations: true
                 includeRealtimeCancellations: true
+                transferSlack: ${byttetid2ElSec}
             ) {
                 fromPlace {
                     name
@@ -89,13 +97,12 @@ function reise () {
     })
     .then(res => res.json())
     .then(stopPlaceData => {
+        console.log(stopPlaceData);
         localStorage.setItem("stopPlaceData", JSON.stringify(stopPlaceData));
         p = 0;
         let html = '';
         const search = stopPlaceData.data.trip;
         trips = search.tripPatterns;
-        console.log(stopPlaceData);
-        console.log(trips);
         i_h1el.innerText = `Resultater fra ${search.fromPlace.name} til ${search.toPlace.name}`;
         // For alle avanger length
         for (let i = 0; i < trips.length; i++) {
@@ -124,21 +131,28 @@ function reise () {
 
             for (b = 0; b < thisTrip.legs.length; b++) {
                 if (thisTrip.legs[b].mode !== "foot") {
-                    const lineDivF = document.createElement('div');
-                    lineDivF.className = "lineDiv2";
-                    lineDivF.textContent = thisTrip.legs[b].line.publicCode;
-                        if (thisTrip.legs[b].line.publicCode > 0 && thisTrip.legs[b].line.publicCode < 10 && thisTrip.legs[b].line.publicCode.length < 2) {
-                            lineDivF.className = lineDivF.classList + ' orange';
-                        } else if (thisTrip.legs[b].line.publicCode > 9 && thisTrip.legs[b].line.publicCode < 20) {
-                            lineDivF.className = lineDivF.classList + ' blue';
-                        } else if (thisTrip.legs[b].line.publicCode.length > 1 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') > 19 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') < 99 | thisTrip.legs[b].line.publicCode == "110" | thisTrip.legs[b].line.publicCode == "100" | thisTrip.legs[b].line.publicCode == "300") {
-                            lineDivF.className = lineDivF.classList + ' red';
-                        } else if (thisTrip.legs[b].line.publicCode.length > 1 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') > 99 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') < 4000) {
-                            lineDivF.className = lineDivF.classList + ' green';
-                        } else {
-                            lineDivF.className = lineDivF.classList + ' other';
-                        };
-                    departureF.appendChild(lineDivF);
+                    if (thisTrip.legs[b].line.publicCode) {
+                        const lineDivF = document.createElement('div');
+                        lineDivF.className = "lineDiv2";
+                        lineDivF.textContent = thisTrip.legs[b].line.publicCode;
+                            if (thisTrip.legs[b].line.publicCode > 0 && thisTrip.legs[b].line.publicCode < 10 && thisTrip.legs[b].line.publicCode.length < 2) {
+                                lineDivF.className = lineDivF.classList + ' orange';
+                            } else if (thisTrip.legs[b].line.publicCode > 9 && thisTrip.legs[b].line.publicCode < 20) {
+                                lineDivF.className = lineDivF.classList + ' blue';
+                            } else if (thisTrip.legs[b].line.publicCode.length > 1 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') > 19 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') < 99 | thisTrip.legs[b].line.publicCode == "110" | thisTrip.legs[b].line.publicCode == "100" | thisTrip.legs[b].line.publicCode == "300") {
+                                lineDivF.className = lineDivF.classList + ' red';
+                            } else if (thisTrip.legs[b].line.publicCode.length > 1 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') > 99 && thisTrip.legs[b].line.publicCode.replace(/\D/g,'') < 4000) {
+                                lineDivF.className = lineDivF.classList + ' green';
+                            } else {
+                                lineDivF.className = lineDivF.classList + ' other';
+                            };
+                        departureF.appendChild(lineDivF);
+                    } else if (thisTrip.legs[b].mode == "air") {
+                        const lineDivF = document.createElement('img');
+                        lineDivF.className = "flyDiv";
+                        lineDivF.src = "Images/plane.png";
+                        departureF.appendChild(lineDivF);
+                    }
                 } else {
                     const lineDivF = document.createElement('img');
                     lineDivF.className = "walkDiv";
@@ -156,8 +170,6 @@ function reise () {
 };
 
 function avgangclick(avgangid) {
-    console.log(avgangid);
-    console.log(trips[avgangid]);
     localStorage.setItem("avgangclicked", avgangid);
     window.location.replace("trip.html");
 };

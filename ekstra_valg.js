@@ -37,29 +37,17 @@ function ankomst() {
 function avganger() {
     var avgangInputCheck = document.getElementById("avganginput");
     var ankomstInputCheck = document.getElementById("ankomstinput");
+    var byttetidCheck = document.getElementById("byttetidid")
     localStorage.removeItem("avgang");
     localStorage.removeItem("ankomst");
     if (avgangInputCheck) {
-        var avgangInputDate = toISOStringWithTimezone(avgangInputCheck.value);
-        console.log(avgangInputDate);
+        var avgangInputDate = new Date(avgangInputCheck.value).toISOString();
         localStorage.setItem("avgang", avgangInputDate);
     }
     if (ankomstInputCheck) {
-        localStorage.setItem("ankomst", ankomstInputCheck.value);
+        var ankomstInputDate = new Date(ankomstInputCheck.value).toISOString();
+        localStorage.setItem("ankomst", ankomstInputDate);
     }
+    localStorage.setItem("byttetid", byttetidCheck.value);
     location.replace("reiseplanlegger.html");
 }
-
-const toISOStringWithTimezone = date => {
-    const tzOffset = -date.getTimezoneOffset();
-    const diff = tzOffset >= 0 ? '+' : '-';
-    const pad = n => `${Math.floor(Math.abs(n))}`.padStart(2, '0');
-    return date.getFullYear() +
-      '-' + pad(date.getMonth() + 1) +
-      '-' + pad(date.getDate()) +
-      'T' + pad(date.getHours()) +
-      ':' + pad(date.getMinutes()) +
-      ':' + pad(date.getSeconds()) +
-      diff + pad(tzOffset / 60) +
-      ':' + pad(tzOffset % 60);
-  };

@@ -3,13 +3,17 @@ let tilEl = document.getElementById("i_til");
 let tilElinput = document.getElementById("i_itil");
 let velgEl = document.getElementById("velg");
 let iplEl = document.getElementById("i_pl");
+let fraDivEl = document.getElementById("fra_div_input");
+let tildivEl = document.getElementById("til_div");
+let tildivElinput = document.getElementById("til_div_input");
 var searchTimeout;
 var velgEnArr = [];
 var navnArr = [];
+tildivEl.style.display = "none"
 fraEl.disabled = false;
 fraEl.onkeydown = function () {
     velgEnArr = [];
-    velgEl.textContent = "";
+    fraDivEl.textContent = "";
 
     // Element mens den laster inn
     // "Laster inn..." tekst
@@ -17,7 +21,7 @@ fraEl.onkeydown = function () {
         var loadingelement = document.createElement("p");
         loadingelement.className = "loadingtextindex";
         loadingelement.textContent = "Laster inn...";
-        velgEl.appendChild(loadingelement);
+        fraDivEl.appendChild(loadingelement);
     };
     // Delay så den ikke sender inn autocomplete API requests hele tiden
     if (searchTimeout != undefined) clearTimeout(searchTimeout);
@@ -33,7 +37,7 @@ function valg () {
         .then(data => {
             navnArr = [];
             velgEnArr = [];
-            velgEl.textContent = "";
+            fraDivEl.textContent = "";
             a = 0;
             // For lengden av stasjoner
             for (x = 0; x < data.features.length; x++) {
@@ -52,7 +56,7 @@ function valg () {
                     stasjonsbutton.textContent = "Velg";
                     var stasjonsnavn = data.features[x].properties.name + ", " + data.features[x].properties.locality;
                     stasjonspelement.appendChild(stasjonsbutton);
-                    velgEl.appendChild(stasjonspelement);
+                    fraDivEl.appendChild(stasjonspelement);
                     velgEnArr.push(velgEnArrel);
                     navnArr.push(stasjonsnavn);
                 }
@@ -66,7 +70,7 @@ function valg () {
                 } else {
                     nodataelement.textContent = "Ingen resultater.";
                 };
-                velgEl.appendChild(nodataelement);
+                fraDivEl.appendChild(nodataelement);
             };
         })
         .catch(error => {
@@ -75,26 +79,22 @@ function valg () {
         });
     };
 function buttonclicked(clicked_id) {
+    fraDivEl.style.display = "none";
     fraEl.disabled = true;
     fraEl.value = navnArr[clicked_id - 1];
     localStorage.setItem("Fra", velgEnArr[clicked_id - 1])
     velgEnArr = [];
-    velgEl.textContent = "";
-    iplEl.textContent = "Til:";
-    let fraform = document.createElement('input');
-    fraform.type = "text";
-    fraform.id = "i_itil";
-    tilEl.appendChild(fraform);
+    tildivEl.style.display = "flex";
 };
 tilEl.onkeydown = function () {
     velgEnArr = [];
-    velgEl.textContent = "";
+    tildivElinput.textContent = "";
     // Element mens den laster inn
     if (!loadingelement) {
         var loadingelement = document.createElement("p");
         loadingelement.className = "loadingtextindex";
         loadingelement.textContent = "Laster inn...";
-        velgEl.appendChild(loadingelement);
+        tildivElinput.appendChild(loadingelement);
     };
     // Delay så den ikke sender inn autocomplete API requests hele tiden
     if (searchTimeout != undefined) clearTimeout(searchTimeout);
@@ -111,7 +111,7 @@ function valg2 () {
         .then(data => {
             navnArr = [];
             velgEnArr = [];
-            velgEl.textContent = "";
+            tildivElinput.textContent = "";
             a = 0;
             // For lengden av stasjoner
             for (x = 0; x < data.features.length; x++) {
@@ -130,7 +130,7 @@ function valg2 () {
                     stasjonsbutton.textContent = "Velg";
                     var stasjonsnavn = data.features[x].properties.name + ", " + data.features[x].properties.locality;
                     stasjonspelement.appendChild(stasjonsbutton);
-                    velgEl.appendChild(stasjonspelement);
+                    tildivElinput.appendChild(stasjonspelement);
                     velgEnArr.push(velgEnArrel);
                     navnArr.push(stasjonsnavn);
                 }
@@ -144,7 +144,7 @@ function valg2 () {
                 } else {
                     nodataelement.textContent = "Ingen resultater.";
                 };
-                velgEl.appendChild(nodataelement);
+                tildivElinput.appendChild(nodataelement);
             };
         })
         .catch(error => {
@@ -157,6 +157,6 @@ function valg2 () {
         tilElinput.value = navnArr[clicked_id - 1];
         localStorage.setItem("Til", velgEnArr[clicked_id - 1]);
         velgEnArr = [];
-        velgEl.textContent = "";
+        tildivElinput.textContent = "";
         window.location.replace("ekstra_valg.html");
     };
