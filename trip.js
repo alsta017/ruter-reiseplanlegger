@@ -151,11 +151,19 @@ for (let c = 0; c < this_departure.legs.length; c++) {
     stopsDiv.className = "stopsDiv";
 
     let startPlaceDiv = document.createElement('div');
-    startPlaceDiv.className = "startPlaceDiv"
-    startPlaceDiv.textContent = this_departure.legs[c].fromPlace.quay.name + " →";
-    legDivLine2.appendChild(startPlaceDiv);
+    let startPlaceAllDiv = document.createElement('div');
+    let startPlaceLine = document.createElement('div');
+    startPlaceDiv.className = "startPlaceDiv";
+    startPlaceAllDiv.className = "startPlaceAllDiv";
+    startPlaceLine.className = "startPlaceLine";
+    startPlaceDiv.textContent = this_departure.legs[c].fromPlace.quay.name;
+    startPlaceAllDiv.appendChild(startPlaceLine);
+    startPlaceAllDiv.appendChild(startPlaceDiv)
+    legDivLine2.appendChild(startPlaceAllDiv);
 
     let endPlaceDiv = document.createElement('div');
+    let endPlaceAllDiv = document.createElement('div');
+    let endPlaceLine = document.createElement('div');
     endPlaceDiv.className = "endPlaceDiv";
 
     let stopPlaceCount = document.createElement('div');
@@ -166,7 +174,9 @@ for (let c = 0; c < this_departure.legs.length; c++) {
         let stopDivExp = document.createElement('div');
         let stopDivAim = document.createElement('div');
         let stopDiv = document.createElement('div');
-        let stopName = document.createElement('div')
+        let stopName = document.createElement('div');
+        let stopDivLine = document.createElement('div');
+        stopDivLine.className = "stopDivLine";
         stopDiv.className = "stopDiv";
         stopDivExp.className = "stopDivExp";
         stopDivAim.className = "stopDivAim";
@@ -174,6 +184,7 @@ for (let c = 0; c < this_departure.legs.length; c++) {
         stopDivExp.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].expectedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
         stopDivAim.textContent = new Date(this_departure.legs[c].intermediateEstimatedCalls[d].aimedArrivalTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
         stopName.textContent = " - " + this_departure.legs[c].intermediateEstimatedCalls[d].quay.name;
+        stopDiv.appendChild(stopDivLine);
         if (stopDivExp.textContent !== stopDivAim.textContent) {
             stopDiv.appendChild(stopDivAim);
             stopDiv.appendChild(stopDivExp);
@@ -182,7 +193,6 @@ for (let c = 0; c < this_departure.legs.length; c++) {
         }
         stopDiv.appendChild(stopName);
         stopsDiv.appendChild(stopDiv);
-        endPlaceDiv.textContent = "→ ";
         stopsDiv.style.display = "none";
         legDivLine2.appendChild(stopPlaceCount)
     }
@@ -227,3 +237,7 @@ function lagre_reise() {
 fullDiv.appendChild(legsDiv);
 
 i_h1el.innerHTML = `Fra ${stopPlaceDatas.data.trip.fromPlace.name} til ${stopPlaceDatas.data.trip.toPlace.name}`;
+
+function back() {
+    window.location.replace("reiseplanlegger.html");
+};
