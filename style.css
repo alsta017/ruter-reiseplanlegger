@@ -188,10 +188,10 @@ body{margin: 0; padding: 0; background-color: #121212;}
 }
 .legDivLine2{
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     font-size: 75%;
     margin-top: 8px;
-    background-color: #292929;
+    background-color: #313131;
     padding: 8px;
     border-radius: 8px;
 }
@@ -210,19 +210,23 @@ body{margin: 0; padding: 0; background-color: #121212;}
     flex-flow: column;
     text-align: center;
     font-size: 75%;
-    margin-left: 8px;
+    margin: auto;
     background-color: #313131;
     border-radius: 8px;
-    padding: 8px;
 }
 .startPlaceDiv{
     margin: auto;
     font-size: 125%;
+    background-color: #313131;
+    padding: 8px;
+    border-radius: 8px;
 }
 .endPlaceDiv{
     margin: auto;
     font-size: 125%;
-    margin-left: 8px;
+    background-color: #313131;
+    padding: 8px;
+    border-radius: 8px;
 }
 
 .button2{
@@ -251,7 +255,6 @@ body{margin: 0; padding: 0; background-color: #121212;}
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-left: 8px;
     font-size: 125%;
 }
 .stopDivAim{
@@ -261,7 +264,7 @@ body{margin: 0; padding: 0; background-color: #121212;}
     display: flex;
     flex-flow: row;
     text-align: center;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
 .stopDivAim, .stopDivExp, .stopName{
@@ -282,4 +285,19 @@ body{margin: 0; padding: 0; background-color: #121212;}
 #fra_div_input, #til_div_input{
     margin: 0px;
     text-align: center;
+}
+.stopDivLine{
+    width: 4px;
+    background-color: red;
+    height: 16px;
+    margin-right: 8px;
+}
+.startPlaceLine{
+    width: 4px;
+    background-color: red;
+    height: 50px;
+    margin-right: 8px;
+}
+.startPlaceAllDiv{
+    display: flex;
 }
